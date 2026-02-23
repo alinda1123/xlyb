@@ -1,2 +1,0 @@
-# xlyb
-medal checking way
