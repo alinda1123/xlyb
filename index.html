@@ -3,328 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>“易”个博物馆线上主题活动获奖查询</title>
+    <title>旧物创意作品获奖查询</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
+            font-family: "Microsoft Yahei", sans-serif;
         }
-
         body {
             background-color: #f5f7fa;
-            padding: 20px;
+            padding: 50px 20px;
+        }
+        .container {
             max-width: 800px;
             margin: 0 auto;
-        }
-
-        .title {
-            text-align: center;
-            color: #2c3e50;
-            margin: 30px 0;
-            font-size: 28px;
-            line-height: 1.4;
-        }
-
-        .search-box {
-            background: white;
+            background: #fff;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
             margin-bottom: 30px;
         }
-
-        .select-group {
-            margin-bottom: 15px;
-        }
-
-        #trackSelect {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        #trackSelect:focus {
-            border-color: #3498db;
-        }
-
-        .input-group {
+        .search-box {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        #nameInput {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        #nameInput:focus {
-            border-color: #3498db;
-        }
-
-        /* 验证码样式 */
-        .captcha-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
             align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
-
-        #captchaInput {
+        .search-box input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        #workName {
             flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
+            min-width: 200px;
         }
-
-        #captchaInput:focus {
-            border-color: #3498db;
-        }
-
-        .captcha-code {
-            width: 120px;
-            height: 48px;
-            background-color: #f8f9fa;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            letter-spacing: 4px;
+        #verifyCode {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #e9ecef;
+            border-radius: 5px;
+            letter-spacing: 3px;
             font-weight: bold;
-            color: #2c3e50;
             cursor: pointer;
             user-select: none;
-            transition: all 0.3s;
         }
-
-        .captcha-code:hover {
-            background-color: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        #searchBtn {
-            padding: 12px 25px;
-            background: #3498db;
-            color: white;
+        button {
+            padding: 10px 20px;
+            background: #409eff;
+            color: #fff;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
-            width: 100%;
+            font-size: 14px;
         }
-
-        #searchBtn:hover {
-            background: #2980b9;
+        button:hover {
+            background: #337ecc;
         }
-
         .result {
-            padding: 20px;
-            border-radius: 8px;
-            font-size: 18px;
-            text-align: center;
-            display: none;
-            line-height: 1.6;
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 2;
         }
-
         .success {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
+            color: #67c23a;
         }
-
         .error {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px solid #ffcdd2;
-        }
-
-        .tips {
-            color: #7f8c8d;
-            text-align: center;
-            margin-top: 10px;
-            line-height: 1.5;
+            color: #f56c6c;
         }
     </style>
 </head>
 <body>
-    <h1 class="title">“易”个博物馆线上主题活动获奖查询</h1>
-    
-    <div class="search-box">
-        <!-- 赛道选择 -->
-        <div class="select-group">
-            <select id="trackSelect">
-                <option value="track1">赛道一</option>
-                <option value="track2">赛道二</option>
-            </select>
+    <div class="container">
+        <h2>旧物改造创意作品获奖查询系统</h2>
+
+        <!-- 查询+验证码区域 -->
+        <div class="search-box">
+            <input type="text" id="workName" placeholder="请输入作品名称进行查询">
+            <input type="text" id="inputCode" placeholder="请输入验证码">
+            <div id="verifyCode" title="点击刷新验证码"></div>
+            <button onclick="checkQuery()">立即查询</button>
         </div>
 
-        <!-- 姓名输入 -->
-        <div class="input-group">
-            <input type="text" id="nameInput" placeholder="请输入姓名查询奖项" autocomplete="off">
-        </div>
-
-        <!-- 验证码区域 -->
-        <div class="captcha-group">
-            <input type="text" id="captchaInput" placeholder="请输入验证码" autocomplete="off">
-            <div id="captchaCode" class="captcha-code"></div>
-        </div>
-
-        <!-- 查询按钮 -->
-        <button id="searchBtn">查询</button>
-        
-        <!-- 结果展示 -->
-        <div id="result" class="result"></div>
-        
-        <!-- 提示文本 -->
-        <p class="tips">请根据获奖截图在规定时间内领奖，过时不候。<br>活动最终解释权归杏林易班所有。</p>
+        <!-- 结果展示区域 -->
+        <div class="result" id="result"></div>
     </div>
 
     <script>
-        // 数据定义：更新后的赛道一、原有赛道二、未获奖名单
-        const data = {
-            track1: {
-                一等: ["刘骏杰", "崔燕燕", "马冬蕾", "黄曼依"],
-                二等: ["贺馨雨", "许纹靖", "张琬婷", "钟欣", "王薇清", "陈洁", "仇晨阳", "王珂珂"],
-                三等: ["毛睿齐", "覃思", "杨海凌", "赵岩", "邹靖雯", "王娅夺", "唐晓曼", "杨丽萍", "汤皓然", "李昕"],
-                四等: ["吴雅琴", "王慧茹", "于竞娆", "李雪梅", "张梦桐", "吴佳翱", "谢俊霞", "李宁", "李语涵", "唐茹", "刘欣", "谢紫瑶", "秦钢", "蒋婧", "李波", "覃少敏", "陈智佩"]
-            },
-            track2: {
-                一等: ["谢雨菲", "毛睿齐", "杨靖一", "黄艳清"],
-                二等: ["曹忱", "黄曼依", "马小倩", "刘骏杰", "安云梦", "冯婧秋", "樊冰冰", "李语涵"],
-                三等: ["唐韵知", "陈智佩", "王慧茹", "王娅夺", "唐燕", "白晨", "李萱", "廖子璇", "李波", "杨海凌"],
-                四等: ["郑潇", "于竞娆", "蒋佩璇", "杨芷凌", "王雅涵", "唐莹", "余灵慧", "王佳佳", "唐芷", "陈宇翔", "冯远锐", "倪煜剀", "吴佳翱", "谢俊霞", "李昕", "相梦", "邢中"]
-            },
-            noAward: ["黄煜晴", "陈月", "刘永芹", "梁艳明", "程悦", "滕妍", "陈屿崎", "罗莎"]
-        };
+        // 作品数据（后台数据，页面不显示）
+        const workData = [
+            { id: 1, name: "奶茶袋改造纸巾盒", award: "二等奖" },
+            { id: 2, name: "Kitty风铃", award: "二等奖" },
+            { id: 3, name: "霸王枫叶", award: "二等奖" },
+            { id: 4, name: "瑞幸废旧咖啡纸袋三五花球", award: "二等奖" },
+            { id: 5, name: "风吟花信", award: "二等奖" },
+            { id: 6, name: "瓶中花旧物生", award: "一等奖" },
+            { id: 7, name: "残纸生莲", award: "二等奖" },
+            { id: 8, name: "蝶舞新生·鞋盒收纳盒", award: "三等奖" },
+            { id: 9, name: "废纸折叠收纳笔筒", award: "二等奖" }
+        ];
 
-        // DOM元素
-        const nameInput = document.getElementById('nameInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const resultDiv = document.getElementById('result');
-        const trackSelect = document.getElementById('trackSelect');
-        const captchaInput = document.getElementById('captchaInput');
-        const captchaCode = document.getElementById('captchaCode');
-        
-        // 生成随机验证码（4位数字+字母组合）
-        let currentCaptcha = '';
-        function generateCaptcha() {
-            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            let captcha = '';
+        let codeStr = "";
+        const codeDom = document.getElementById("verifyCode");
+        const resultDom = document.getElementById("result");
+
+        // 生成随机4位验证码
+        function createCode() {
+            const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            codeStr = "";
             for (let i = 0; i < 4; i++) {
-                captcha += chars[Math.floor(Math.random() * chars.length)];
+                const index = Math.floor(Math.random() * chars.length);
+                codeStr += chars[index];
             }
-            currentCaptcha = captcha;
-            captchaCode.textContent = captcha;
+            codeDom.innerText = codeStr;
         }
 
         // 初始化验证码
-        generateCaptcha();
-        
-        // 点击验证码区域刷新
-        captchaCode.addEventListener('click', generateCaptcha);
+        window.onload = createCode;
+        codeDom.onclick = createCode;
 
-        // 查询函数
-        function searchAward() {
-            const name = nameInput.value.trim();
-            const selectedTrack = trackSelect.value;
-            const inputCaptcha = captchaInput.value.trim();
+        // 查询功能
+        function checkQuery() {
+            const workName = document.getElementById("workName").value.trim();
+            const inputCode = document.getElementById("inputCode").value.trim();
 
-            // 验证输入
-            if (!name) {
-                showResult("请输入姓名后再查询！", "error");
-                return;
-            }
-            
-            if (!inputCaptcha) {
-                showResult("请输入验证码！", "error");
-                return;
-            }
-            
-            // 验证验证码（不区分大小写）
-            if (inputCaptcha.toLowerCase() !== currentCaptcha.toLowerCase()) {
-                showResult("验证码错误，请重新输入！", "error");
-                generateCaptcha(); // 刷新验证码
-                captchaInput.value = '';
+            // 验证码校验
+            if (inputCode.toLowerCase() !== codeStr.toLowerCase()) {
+                resultDom.innerHTML = "<p class='error'>验证码输入错误，请重新输入！</p>";
+                createCode();
                 return;
             }
 
-            let result = "";
-
-            // 优先判断赛道一未获奖人员（无论选中哪个赛道都能查到）
-            if (data.noAward.includes(name)) {
-                result = `${name}：赛道一参赛人员，未获得奖项<br>感谢你的参与`;
-                showResult(result, "error");
-                // 查询成功后刷新验证码
-                generateCaptcha();
-                captchaInput.value = '';
+            // 非空判断
+            if (!workName) {
+                resultDom.innerHTML = "<p class='error'>请输入要查询的作品名称！</p>";
                 return;
             }
 
-            // 查询选中赛道的获奖信息
-            if (selectedTrack === "track1") {
-                for (const level in data.track1) {
-                    if (data.track1[level].includes(name)) {
-                        result = `${name}：赛道一，获得${level}奖`;
-                        break;
-                    }
-                }
-            } else if (selectedTrack === "track2") {
-                for (const level in data.track2) {
-                    if (data.track2[level].includes(name)) {
-                        result = `${name}：赛道二，获得${level}奖`;
-                        break;
-                    }
-                }
-            }
-
-            // 输出结果
-            if (result) {
-                showResult(result, "success");
+            // 模糊查询
+            const filterData = workData.filter(item => item.name.includes(workName));
+            if (filterData.length === 0) {
+                resultDom.innerHTML = "<p class='error'>未查询到该作品的获奖信息！</p>";
             } else {
-                showResult(`在${selectedTrack === "track1" ? "赛道一" : "赛道二"}中未查询到【${name}】的信息`, "error");
+                let html = "<p class='success'>查询成功，获奖信息如下：</p>";
+                filterData.forEach(item => {
+                    html += `<p>序号：${item.id} &nbsp;&nbsp; 作品名称：${item.name} &nbsp;&nbsp; 获奖等级：${item.award}</p>`;
+                });
+                resultDom.innerHTML = html;
             }
-            
-            // 查询完成后刷新验证码，清空验证码输入框
-            generateCaptcha();
-            captchaInput.value = '';
         }
-
-        // 显示结果
-        function showResult(text, type) {
-            resultDiv.innerHTML = text;
-            resultDiv.className = `result ${type}`;
-            resultDiv.style.display = "block";
-        }
-
-        // 绑定事件
-        searchBtn.addEventListener('click', searchAward);
-        
-        // 回车键查询（同时监听姓名和验证码输入框）
-        nameInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') searchAward();
-        });
-        
-        captchaInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') searchAward();
-        });
     </script>
 </body>
 </html>
